@@ -10,6 +10,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.demo.model.User;
 import com.example.demo.model.UserAuthentication;
 import com.example.demo.model.UserToken;
 import com.example.demo.services.TokenAuthenticationService;
@@ -17,11 +18,19 @@ import com.example.demo.services.TokenAuthenticationService;
 @Service
 @Transactional
 public class TokenAuthenticationServiceImpl implements TokenAuthenticationService {
+	
+	private static final String AUTH_HEADER_NAME = "X-AUTH-TOKEN";
 
 	@Override
 	public Authentication getAuthenticationForLogin(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
 		// TODO Auto-generated method stub
+		
+		User user = null;
+		
+		final String username = request.getHeader("username") == null ? null : request.getHeader("username");
+		final String password = request.getHeader("password") == null ? null : request.getHeader("password");
+		
 		UserAuthentication auth = new UserAuthentication(null);
 		return auth;
 		

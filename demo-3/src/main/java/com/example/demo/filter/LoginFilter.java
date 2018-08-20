@@ -29,6 +29,7 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter{
 		// TODO Auto-generated constructor stub
 		tokenAuthenticationService = (TokenAuthenticationService) ApplicationContextProvider.getApplicationContext()
 				.getBean("tokenAuthenticationServiceImpl");
+		System.out.println(tokenAuthenticationService.toString());
 	}
 
 	@Override
