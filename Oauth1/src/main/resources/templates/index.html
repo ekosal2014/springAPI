@@ -10,7 +10,7 @@
 	asdfkasda
 	<button id="getUser">get User</button>
 	<button id="getUserByName">get User</button>
-	<input type="hidden" id="username">
+	<input type="text" id="username">
 	<input type="hidden" id="access_token">
 </body>
 <script>
@@ -56,10 +56,10 @@
 				        });
 		        });
 		        
-		        $('#getUser').click(function(){
+		        $('#getUserByName').click(function(){
 		        	 $.ajax({
 				            type: 'GET',
-				            url:  "http://localhost:8181/khmoney/user",
+				            url:  "http://localhost:8181/khmoney/user-by-name",
 				            data :  {'access_token' : $('#access_token').val() 
 				            	    ,'name'         : $('#username').val()
 				            },
