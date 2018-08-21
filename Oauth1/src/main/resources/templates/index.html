@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+	ldkfadfkla
+	asdfkasda
+	<button id="getUser">get User</button>
+	<input type="hidden" id="access_token">
+</body>
+<script>
+		$(document).ready(function(){
+			
+		        $.ajax({
+		            type: 'POST',
+		            url:  "http://localhost:8181/khmoney/oauth/token",
+		            data :  {'grant_type' : 'password',
+	                         'username'   : 'admin',
+	                         'password'   : 'ekosal'
+		            },
+		            beforeSend: function(xhr){
+		            	xhr.setRequestHeader("Authorization","Basic a29zYWwtY2xpZW50Omtvc2FsLXNlY3JldA==");
+		            	//xhr.setRequestHeader("Authorization", "Basic " + $.base64.encode("kosal-client" + ':' + "kosal-secret") )
+		            },
+		            success : function(json){
+		            	console.log(json['access_token']);
+		            	$('#access_token').val(json['access_token']);
+		            	//$('.result').append(JSON.stringify(json));
+		            	           	
+		            },
+		            error : function(){
+		               console.log('error');
+		            }
+		        });
+		        
+			
+		        $('#getUser').click(function(){
+		        	 $.ajax({
+				            type: 'GET',
+				            url:  "http://localhost:8181/khmoney/user",
+				            data :  {'access_token' : $('#access_token').val() 		                         
+				            },
+				            success : function(json){
+				            	console.log(json);
+				            	//$('.result').append(JSON.stringify(json));
+				            	           	
+				            },
+				            error : function(){
+				               console.log('error');
+				            }
+				        });
+		        });
+		});
+	</script>
+</html>
