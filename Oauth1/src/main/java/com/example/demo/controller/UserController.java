@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.controller;
 
 import java.util.List;
 
@@ -31,6 +31,12 @@ public class UserController {
 	    public String delete(@PathVariable(value = "id") Long id){
 	        userService.deleteUserById(id);
 	        return "success";
+	    }
+	    
+	    @RequestMapping(value = "/user/{name}", method = RequestMethod.GET)
+	    public User getUserById(@PathVariable(value = "name") String name){
+	        //userService.findByName(id);
+	        return userService.findByName(name);
 	    }
 
 }

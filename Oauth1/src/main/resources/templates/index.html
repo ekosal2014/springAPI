@@ -9,6 +9,8 @@
 	ldkfadfkla
 	asdfkasda
 	<button id="getUser">get User</button>
+	<button id="getUserByName">get User</button>
+	<input type="hidden" id="username">
 	<input type="hidden" id="access_token">
 </body>
 <script>
@@ -42,6 +44,24 @@
 				            type: 'GET',
 				            url:  "http://localhost:8181/khmoney/user",
 				            data :  {'access_token' : $('#access_token').val() 		                         
+				            },
+				            success : function(json){
+				            	console.log(json);
+				            	//$('.result').append(JSON.stringify(json));
+				            	           	
+				            },
+				            error : function(){
+				               console.log('error');
+				            }
+				        });
+		        });
+		        
+		        $('#getUser').click(function(){
+		        	 $.ajax({
+				            type: 'GET',
+				            url:  "http://localhost:8181/khmoney/user",
+				            data :  {'access_token' : $('#access_token').val() 
+				            	    ,'name'         : $('#username').val()
 				            },
 				            success : function(json){
 				            	console.log(json);
