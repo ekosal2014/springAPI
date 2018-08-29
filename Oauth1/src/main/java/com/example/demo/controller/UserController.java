@@ -18,7 +18,7 @@ public class UserController {
 	   @Autowired
 	    private UserServiceImpl userService;
 
-	    @RequestMapping(value="/user", method = RequestMethod.GET)
+	    @RequestMapping(value="/user/list", method = RequestMethod.GET)
 	    public List listUser(){
 	        return userService.findAllUsers();
 	    }
@@ -34,8 +34,8 @@ public class UserController {
 	        return "success";
 	    }
 	    
-	    @RequestMapping(value = "/user-by-name", method = RequestMethod.GET)
-	    public User getUserById(@RequestParam(value = "name") String name){
+	    @RequestMapping(value = "/user/user-by-name", method = RequestMethod.GET)
+	    public User getUserById(@RequestParam(value = "username") String name){
 	        //userService.findByName(id);
 	        return userService.findByName(name);
 	    }

@@ -12,42 +12,46 @@
 	<button id="getUserByName">get User</button>
 	<input type="text" id="username">
 	<input type="hidden" id="access_token">
+	<div class="result"></div>
 </body>
 <script>
 		$(document).ready(function(){
 			
-		        $.ajax({
+		        /* $.ajax({
 		            type: 'POST',
 		            url:  "http://localhost:8181/khmoney/oauth/token",
 		            data :  {'grant_type' : 'password',
-	                         'username'   : 'admin',
-	                         'password'   : 'ekosal'
+	                          'username'   : 'admin',
+	                         'password'   : 'ekosal' 
 		            },
 		            beforeSend: function(xhr){
 		            	xhr.setRequestHeader("Authorization","Basic a29zYWwtY2xpZW50Omtvc2FsLXNlY3JldA==");
+		            	
 		            	//xhr.setRequestHeader("Authorization", "Basic " + $.base64.encode("kosal-client" + ':' + "kosal-secret") )
 		            },
 		            success : function(json){
 		            	console.log(json['access_token']);
 		            	$('#access_token').val(json['access_token']);
-		            	//$('.result').append(JSON.stringify(json));
+		            	$('.result').text('');
+		            	$('.result').append(JSON.stringify(json));
 		            	           	
 		            },
 		            error : function(){
 		               console.log('error');
 		            }
 		        });
-		        
+		         */
 			
 		        $('#getUser').click(function(){
 		        	 $.ajax({
 				            type: 'GET',
-				            url:  "http://localhost:8181/khmoney/user",
-				            data :  {'access_token' : $('#access_token').val() 		                         
+				            url:  "http://localhost:8888/khmoney/user/list",
+				            data :  {/* 'access_token' : $('#access_token').val() 		    */                      
 				            },
 				            success : function(json){
 				            	console.log(json);
-				            	//$('.result').append(JSON.stringify(json));
+				            	$('.result').text('');
+				            	$('.result').append(JSON.stringify(json));
 				            	           	
 				            },
 				            error : function(){
@@ -59,13 +63,14 @@
 		        $('#getUserByName').click(function(){
 		        	 $.ajax({
 				            type: 'GET',
-				            url:  "http://localhost:8181/khmoney/user-by-name",
-				            data :  {'access_token' : $('#access_token').val() 
-				            	    ,'name'         : $('#username').val()
+				            url:  "http://localhost:8888/khmoney/user/user-by-name",
+				            data :  {/* 'access_token' : $('#access_token').val() */ 
+				            	    'username'         : $('#username').val()
 				            },
 				            success : function(json){
 				            	console.log(json);
-				            	//$('.result').append(JSON.stringify(json));
+				            	$('.result').text('');
+				            	$('.result').append(JSON.stringify(json));
 				            	           	
 				            },
 				            error : function(){
