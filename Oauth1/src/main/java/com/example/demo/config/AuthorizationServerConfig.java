@@ -41,9 +41,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
        oauthServer
          .tokenKeyAccess("permitAll()")
          .checkTokenAccess("isAuthenticated()");
-   }
+    }
    
-   
+    
 	@Override
 	public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
 
