@@ -21,7 +21,7 @@ public class CustomUserService implements UserDetailsService {
 		}
 		
 		user.setPassword("$2a$10$mOzYexnqVmFf374ksgRBCer1Z6RmkdqEevDLRKqDV2ookBHKaX11e");
-		user.setUsername("ekosal");
+		user.setUsername("admin");
 		
 		return user;
 	}

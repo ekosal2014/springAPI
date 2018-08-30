@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
@@ -20,59 +19,71 @@ import org.springframework.web.filter.CorsFilter;
 
 import com.example.demo.service.CustomUserService;
 
-import javax.annotation.Resource;
-
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-	@Autowired
-	private CustomUserService customUserService;
-
-	@Override
+@EnableGlobalMethodSecurity( prePostEnabled = true )
+public class SecurityConfig extends WebSecurityConfigurerAdapter{
+	
+	/*@Autowired
+	private CustomUserService customUserService;*/
+	
+	 @Override
     @Bean
-    public AuthenticationManager authenticationManagerBean() 
-      throws Exception {
+    public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-
-    @Autowired
-    public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customUserService)
-                .passwordEncoder(encoder());
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-            .antMatchers("/login").permitAll()
-            .anyRequest().authenticated()
-            .and()
-            .formLogin().permitAll();
-    }
-
-    @Bean
-    public TokenStore tokenStore() {
-        return new InMemoryTokenStore();
-    }
-
-    @Bean
-    public BCryptPasswordEncoder encoder(){
-        return new BCryptPasswordEncoder();
-    }
-
-   /* @Bean
-    public FilterRegistrationBean corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin("*");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
-        source.registerCorsConfiguration("/**", config);
-        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
-        bean.setOrder(0);
-        return bean;
-    }*/
+	 
+	/*@Autowired
+	public void globalUserDetails(AuthenticationManagerBuilder auth ) throws Exception {
+		auth.userDetailsService(customUserService).passwordEncoder(encoder());
+			
+	}*/
+	 
+	 @Autowired
+	    public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
+	        auth.inMemoryAuthentication()
+	        .withUser("bill").password("abc123").roles("ADMIN").and()
+	        .withUser("bob").password("abc123").roles("USER");
+	    }
+	
+	@Override
+	protected void configure(HttpSecurity http) throws Exception{
+		
+		 http
+         .csrf().disable()
+         .anonymous().disable()
+         .authorizeRequests()
+         .antMatchers("/oauth/token").permitAll();	
+	}
+	
+	@Bean
+	public TokenStore tokenStore() {
+		return new InMemoryTokenStore();
+	}
+	
+	@Bean
+	public BCryptPasswordEncoder encoder() {
+		return new BCryptPasswordEncoder();
+	}
+	
+	@Bean
+	public FilterRegistrationBean corsFilter() {
+		
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		
+		CorsConfiguration config = new CorsConfiguration();
+		config.setAllowCredentials(true);
+		config.addAllowedOrigin("*");
+		config.addAllowedHeader("*");
+		config.addAllowedMethod("*");
+		source.registerCorsConfiguration("/**", config);
+	
+		FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+		
+		bean.setOrder(0);
+		
+		return bean;
+		
+		
+	}
 }

@@ -28,10 +28,9 @@ public class UserController {
 	        userService.saveUser(user);
 	    }
 
-	    @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
-	    public String delete(@PathVariable(value = "id") Long id){
-	        userService.deleteUserById(id);
-	        return "success";
+	    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+	    public List delete(@PathVariable(value = "id") String id){
+	    	return userService.findAllUsers();
 	    }
 	    
 	    @RequestMapping(value = "/user/user-by-name", method = RequestMethod.GET)
