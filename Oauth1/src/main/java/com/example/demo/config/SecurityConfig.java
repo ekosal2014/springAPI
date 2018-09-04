@@ -1,4 +1,4 @@
-package com.example.demo.config;
+/*package com.example.demo.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -21,11 +21,11 @@ import com.example.demo.service.CustomUserService;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity( prePostEnabled = true )
+//@EnableGlobalMethodSecurity( prePostEnabled = true )
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
-	/*@Autowired
-	private CustomUserService customUserService;*/
+	@Autowired
+	private CustomUserService customUserService;
 	
 	 @Override
     @Bean
@@ -33,18 +33,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         return super.authenticationManagerBean();
     }
 	 
-	/*@Autowired
+	@Autowired
 	public void globalUserDetails(AuthenticationManagerBuilder auth ) throws Exception {
 		auth.userDetailsService(customUserService).passwordEncoder(encoder());
 			
-	}*/
+	}
 	 
-	 @Autowired
-	    public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
-	        auth.inMemoryAuthentication()
-	        .withUser("bill").password("abc123").roles("ADMIN").and()
-	        .withUser("bob").password("abc123").roles("USER");
-	    }
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
@@ -87,3 +81,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		
 	}
 }
+*/
